@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example of map- high order function</title>
+</head>
+<body>
+<script type="text/javascript">
+	 var elems = [5,3,2,57,1,4];
+
+	 function forEach(elems,action)// foreach is a high order function
+	 {
+	 	for(var i=0; i<elems.length;i++){
+	 		action(elems[i]);//action is a callback function
+	 	}
+	 }
+
+	 function map(elems,mappingFn){
+	 	var result=[];
+	 	forEach(elems,function(data){
+	 		result.push(mappingFn(data));
+	 	});
+	 	return result;
+	 }
+
+	 var values= map(elems,function(v) {
+	 	return v*v;
+	 });
+
+	 forEach(values,console.log);
+
+</script>
+</body>
+</html>

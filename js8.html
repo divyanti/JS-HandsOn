@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OOP Constructor pattern</title>
+</head>
+<body>
+<script type="text/javascript">
+	function Blog(msg,author,date){
+		this.msg=msg || "";
+		this.author=author || "anonymous";
+		this.date=date|| new Date();
+
+	}
+	//class owned instance method
+	Blog.prototype.getDetails = function(){
+		return this.msg + ",@" + this.author +", posted on:" + this.date;
+	}
+
+	// class owned class method[static method]. can't use 'this' keyword.
+	Blog.compare=function(b1,b2){
+		return b1.date > b2.date;
+	}
+
+	var blogs=[new Blog("Joined Adobe","Peter",new Date(2015,1,21)),
+			   new Blog("Learning JS","Gopal",new Date(2014,10,1)),
+			   new Blog("Purchased a car")];
+
+	blogs.sort(Blog.compare);
+	blogs.forEach(function(blog){
+		console.log(blog.getDetails());
+	});
+
+</script>
+</body>
+</html>

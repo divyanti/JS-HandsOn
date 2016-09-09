@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Example of High order functions and closure</title>
+</head>
+<body>
+<script type="text/javascript">
+	function adder(no){
+	 return function(no1){
+			return no + no1;}
+	}
+	var fiveAdder = adder(5);
+	var tenAdder=adder(10);
+	console.log(adder(2)(3));//Currying concept
+	console.log(fiveAdder(2));
+	console.log(tenAdder(2));
+	</script>
+</body>
+</html>

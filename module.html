@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>module pattern</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var ShoppingCart=(function(){
+			var cart=[];
+			function addItem(item){
+				cart.push(item);
+			};
+			function getItems(){
+				return cart;
+			};
+			return{
+				get:getItems,
+				add:addItem
+			}
+		}) ();
+
+		ShoppingCart.add({"id":1,"name":"A"});
+		ShoppingCart.add({"id":2,"name":"B"});
+		
+		var items = ShoppingCart.get();
+		items.forEach(function(item){
+			console.log(item.id + "," + item.name);
+		})
+	</script>
+
+</body>
+</html>

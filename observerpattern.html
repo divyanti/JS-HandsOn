@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOM EXAMPLE</title>
+</head>
+<body>
+	<h1 id="header">
+	This is header!!!
+	</h1>
+	<div id="stats">
+		
+	</div>
+	<table id ="tbl">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>DELETE</th>
+		</tr>
+		
+	</table>
+	<form>
+	<table>
+		<tr>
+			<td>ID</td>
+			<td><input type="text" name="id" id="id"></td>
+		</tr>
+
+		<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" id="name"></td>
+		</tr>
+
+		<tr>
+			<td>Price</td>
+			<td><input type="text" name="price" id="price"></td>
+		</tr>
+
+		<tr>
+			<td colspan="2"><button type="button" id="btnAdd">Add</button></td>
+		</tr>
+
+	</table>
+	</form>
+	<script type="text/javascript">
+
+
+	var products =[{"id":100,"name":"ABC","Price":345.78},
+					   {"id":101,"name":"DEF","Price":678.78},];
+
+	var subject ={
+		events: [],
+		subscribe:function(eventName, cb){
+			this.events[eventName] = this.events[eventName] || [];
+			this.events[eventName].push(cb);
+
+		},
+		notify: function(eventName,data){
+			this.events[eventName].forEach(function(cb){
+				cb(data);
+
+			});
+
+		}
+	};
+
+	//stats module
+	(function(){
+		var stats= document.getElementById("stats");
+		subject.subscribe("add_product",function(data){
+			stats.innerHTML="#"+ data.length;
+
+		});
+	})();
+
+	//product module
+	(function(){
+		var tbl=document.getElementById("tbl");
+		function render(data){
+			var len=tbl.rows.length;
+			for(i=len-1;i>0;i--){
+				tbl.deleteRow(i);
+			}
+
+		data.forEach(function(prd){
+			var tr=document.createElement("tr");
+			var td=document.createElement("td");
+			var txt=document.createTextNode(prd.id);
+			td.appendChild(txt);
+			tr.appendChild(td);
+
+			var td=document.createElement("td");
+			var txt=document.createTextNode(prd.name);
+			td.appendChild(txt);
+			tr.appendChild(td);
+
+			var td=document.createElement("td");
+			var txt=document.createTextNode(prd.price);
+			td.appendChild(txt);
+			tr.appendChild(td);
+
+			var td=document.createElement("td");
+			//t="<a href='#' class ='del'> Delete</a>";
+
+			a=document.createElement("a");
+			a.addEventListener("click",function(){
+				this.parentNode.parentNode.remove();
+			});
+			
+			a.setAttribute("href","#");
+			a.setAttribute("class","del");
+			a.innerText="Delete";
+
+			td.appendChild(a);
+			tr.appendChild(td);
+			tbl.appendChild(tr);
+
+		});
+
+		};
+		subject.subscribe("add_product",render);	
+
+		})();
+		
+		var delLnk = document.querySelectorAll(".del");
+		for (var i = 0; i <delLnk.length; i++) {
+			delLnk[i].addEventListener("click",function(){
+				this.parentNode.parentNode.remove();
+			});
+		}
+
+		document.getElementById("btnAdd").addEventListener("click",function(){
+			var id=parseInt(document.getElementById("id").value);
+			var name=document.getElementById("name").value;
+			var price=parseFloat(document.getElementById("price").value);
+			var prd={};
+			prd.id=id;
+			prd.name=name;
+			prd.price=price;
+			products.push(prd);
+			subject.notify("add_product",products);	
+			
+		});
+	
+	
+
+	</script>
+
+
+</body>
+</html>

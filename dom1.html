@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOM EXAMPLE</title>
+</head>
+<body>
+	<h1 id="header">
+	This is header!!!
+	</h1>
+	<table id ="tbl">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>DELETE</th>
+		</tr>
+
+		<tr>
+			<td>100</td>
+			<td>ABC</td>
+			<td>2300</td>
+			<td><a href="#" class="del">Delete</a></td>
+		</tr>
+
+		<tr>
+			<td>101</td>
+			<td>DEF</td>
+			<td>2670</td>
+			<td><a href="#" class="del">Delete</a></td>
+		</tr>
+
+		<tr>
+			<td>102</td>
+			<td>GHI</td>
+			<td>7860</td>
+			<td><a href="#" class="del">Delete</a></td>
+		</tr>
+		
+	</table>
+	<form>
+	<table>
+		<tr>
+			<td>ID</td>
+			<td><input type="text" name="id" id="id"></td>
+		</tr>
+
+		<tr>
+			<td>Name</td>
+			<td><input type="text" name="name" id="name"></td>
+		</tr>
+
+		<tr>
+			<td>Price</td>
+			<td><input type="text" name="price" id="price"></td>
+		</tr>
+
+		<tr>
+			<td colspan="2"><button type="button" id="btnAdd">Add</button></td>
+		</tr>
+
+	</table>
+	</form>
+	<script type="text/javascript">
+		var delLnk = document.querySelectorAll(".del");
+		for (var i = 0; i <delLnk.length; i++) {
+			delLnk[i].addEventListener("click",function(){
+				this.parentNode.parentNode.remove();
+			});
+		}
+
+		document.getElementById("btnAdd").addEventListener("click",function(){
+			var id=parseInt(document.getElementById("id").value);
+			var name=document.getElementById("name").value;
+			var price=parseFloat(document.getElementById("price").value);
+
+			var tbl=document.getElementById("tbl");
+			var tr=document.createElement("tr");
+			
+			var td=document.createElement("td");
+			var txt=document.createTextNode(id);
+			td.appendChild(txt);
+			tr.appendChild(td);
+
+			var td=document.createElement("td");
+			var txt=document.createTextNode(name);
+			td.appendChild(txt);
+			tr.appendChild(td);
+
+			var td=document.createElement("td");
+			var txt=document.createTextNode(price);
+			td.appendChild(txt);
+			tr.appendChild(td);
+
+			var td=document.createElement("td");
+			//t="<a href='#' class ='del'> Delete</a>";
+
+			a=document.createElement("a");
+			a.addEventListener("click",function(){
+				this.parentNode.parentNode.remove();
+			});
+
+			a.setAttribute("href","#");
+			a.setAttribute("class","del");
+			a.innerText="Delete";
+
+			td.appendChild(a);
+			tr.appendChild(td);
+			tbl.appendChild(tr);
+		});
+
+	</script>
+
+
+</body>
+</html>

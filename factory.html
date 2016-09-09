@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>factory pattern</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var dom = { };
+		dom.Button = function() {
+			this.data="";
+			this.insert=function(where){
+				var btn = document.createElement("button");
+				var txt = document.createTextNode(this.data);
+				btn.appendChild(txt);
+				where.appendChild(btn);
+			}
+		};
+
+		dom.Link = function() {
+			this.data="";
+			this.insert = function(where) {
+				var lnk= document.createElement("a");
+				lnk.setAttribute("href",this.data);
+				var txt= document.createTextNode(this.data);
+				lnk.appendChild(txt);
+				where.appendChild(lnk);
+			}
+		};
+
+		dom.factory = function(elem){
+			return new dom[elem];
+		}
+
+		var button = dom.factory("Button");
+		button.data="Click me";
+		button.insert(document.body);
+
+		var link = dom.factory("Link");
+		link.data = "http://adobe.com";
+		link.insert(document.body);
+
+
+	</script>
+
+</body>
+</html>;

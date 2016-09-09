@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sum of Mobiles</title>
+</head>
+<body>
+<script type="text/javascript">
+	var products = [{"Name":"A","category":"TV","Price":65000},{"Name":"B","category":"Mobile","Price":55000},{"Name":"C","category":"Washing Machine","Price":48000},{"Name":"D","category":"Mobile","Price":26000}]
+	
+	function forEach(elems,action)// foreach is a high order function
+	 {
+	 	for(var i=0; i<elems.length;i++){
+	 		action(elems[i]);//action is a callback function
+	 	}
+	 }
+
+	 function map(elems,mappingFn){
+	 	var result=[];
+	 	forEach(elems,function(data){
+	 		result.push(mappingFn(data));
+	 	});
+	 	return result;
+	 }
+
+	 function reduce(elems,base,reduceFn){
+	 	forEach(elems,function(data){
+	 		base= reduceFn(base,data);
+	 	});
+	 	return base;
+	 }
+
+	 function filter(elems,predicate){
+	 	var result=[];
+	 	forEach(elems,function(data){
+	 		if(predicate(data)==true)
+	 		result.push(data);
+	 	});
+	 	return result;
+	 }
+
+	 var result=filter(products,function(p){
+	 	return p.category === 'Mobile';
+	 });
+	 var value= reduce(result,0.0,function(v1,v2){
+	 	return v1 +v2.Price;
+	 });
+
+	 console.log(value);
+
+</script>
+
+</body>
+</html>

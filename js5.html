@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Filter example</title>
+</head>
+<body>
+<script type="text/javascript">
+	var elems = [5,3,2,57,1,4];
+
+	 function forEach(elems,action)// foreach is a high order function
+	 {
+	 	for(var i=0; i<elems.length;i++){
+	 		action(elems[i]);//action is a callback function
+	 	}
+	 }
+
+	 function filter(elems,predicate){
+	 	var result=[];
+	 	forEach(elems,function(data){
+	 		if(predicate(data)==true)
+	 		result.push(data);
+	 	});
+	 	return result;
+	 }
+
+	 var values= filter(elems,function(v) {
+	 	return v%2==0;
+	 });
+
+	 forEach(values,console.log);
+
+
+</script>
+</body>
+</html>
