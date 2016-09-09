@@ -1,1 +1,3 @@
-# JS-HandsOn
+JS-HandsOn
+
+Programs related to JavaScript
